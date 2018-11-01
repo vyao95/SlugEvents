@@ -19,6 +19,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainScreen"
+            android:label="@string/title_activity_main_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CustomizeProfileScreen"
+            android:label="@string/title_activity_customize_profile_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateEventScreen"
+            android:label="@string/title_activity_create_event_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DiscoverEventsScreen"
+            android:label="@string/title_activity_discover_events_screen"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

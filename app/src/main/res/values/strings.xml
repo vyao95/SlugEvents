@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">SlugEvents</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main_screen">MainScreen</string>
+    <string name="title_activity_customize_profile_screen">CustomizeProfileScreen</string>
+    <string name="title_activity_create_event_screen">CreateEventScreen</string>
+    <string name="title_activity_discover_events_screen">DiscoverEventsScreen</string>
 </resources>
