@@ -15,8 +15,6 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Button customizeProfileBtn = (Button) findViewById(R.id.customizeProfileBtn);
         customizeProfileBtn.setOnClickListener(new View.OnClickListener() {

@@ -22,74 +22,52 @@ import com.google.firebase.auth.AuthCredential;
 import com.example.cmps121.slugevents.MainScreen;
 import com.example.cmps121.slugevents.R;
 
-public class LoginScreen extends AppCompatActivity implements OnClickListener{
-    private EditText etEmail, etPassword;
-    private Button login, register;
+public class RegisterScreen extends AppCompatActivity implements OnClickListener {
+
     private FirebaseAuth mAuth;
+    private Button signUpBtn;
+    private EditText etEmail;
+    private EditText etPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
+        setContentView(R.layout.activity_registration_screen);
 
         mAuth = FirebaseAuth.getInstance();
 
-
+        signUpBtn = (Button) findViewById(R.id.signUpBtn);
         etEmail = (EditText) findViewById(R.id.email);
         etPassword = (EditText) findViewById(R.id.password);
-        register = (Button) findViewById(R.id.signUpBtn);
-        login = (Button) findViewById(R.id.loginBtn);
-        login.setOnClickListener(this);
-        register.setOnClickListener(this);
-    }
 
+        signUpBtn.setOnClickListener(this);
+    }
 
     @Override
     public void onClick(View v) {
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
 
-        switch (v.getId()) {
-
-            case R.id.signUpBtn:
-                startActivity(new Intent(LoginScreen.this, RegisterScreen.class));
-                break;
-
-            case R.id.loginBtn:
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-
-                if (!email.isEmpty() && !password.isEmpty()) {
-
-                    loginProcess(email, password);
-
-                }
-                break;
+        if (!email.isEmpty() && !password.isEmpty()) {
+            registerProcess(email, password);
         }
     }
 
+    private void registerProcess(String email, String password) {
 
-    private void loginProcess(String email, String password) {
-
-        //AuthCredential credential = GoogleAuthProvider.getCredential(email, password);
-
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
 
-                            FirebaseUser user = task.getResult().getUser();
-
-
-                            startActivity(new Intent(LoginScreen.this, MainScreen.class));
-
+                            startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
                         }
-
-
                     }
                 });
     }
-
 }
+
