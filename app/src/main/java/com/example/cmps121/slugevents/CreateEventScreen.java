@@ -66,11 +66,11 @@ public class CreateEventScreen extends AppCompatActivity {
     }
     private void addEvent() {
 
-    String name = etName.getText().toString();
-    String time = etTime.getText().toString();
-    String location = etLocation.getText().toString();
-    String date = etDate.getText().toString();
-    String email = u.getEmail();
+        String name = etName.getText().toString();
+        String time = etTime.getText().toString();
+        String location = etLocation.getText().toString();
+        String date = etDate.getText().toString();
+        String email = u.getEmail();
 
 
         if(!TextUtils.isEmpty(name)
@@ -79,15 +79,14 @@ public class CreateEventScreen extends AppCompatActivity {
             && !TextUtils.isEmpty(date)){
 
 
-        String id = databaseEvents.push().getKey();
-        Event event = new Event(id, name, time, location, date, email);
-        databaseEvents.child(id).setValue(event);
-        Intent i = new Intent(CreateEventScreen.this, MainScreen.class);
-        startActivity(i);
+            String id = databaseEvents.push().getKey();
+            Event event = new Event(id, name, time, location, date, email);
+            databaseEvents.child(id).setValue(event);
+            Intent i = new Intent(CreateEventScreen.this, MainScreen.class);
+            startActivity(i);
+        } else{
+            Toast.makeText(this, "You have not filled out a required field", Toast.LENGTH_LONG).show();
+        }
     }
-    else{
-        Toast.makeText(this, "You have not filled out a required field", Toast.LENGTH_LONG).show();
-    }
-}
 }
 
