@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.cmps121.slugevents">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".LoginScreen"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainScreen"
+            android:label="@string/title_activity_main_screen"/>
+
+        <activity
+            android:name=".RegisterScreen"
+            android:label="RegisterScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".CustomizeProfileScreen"
+            android:label="@string/title_activity_customize_profile_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateEventScreen"
+            android:label="@string/title_activity_create_event_screen"/>
+        <activity
+            android:name=".DiscoverEventsScreen"
+            android:label="@string/title_activity_discover_events_screen"
+            android:theme="@style/AppTheme.NoActionBar"/>
+    </application>
+
+</manifest>

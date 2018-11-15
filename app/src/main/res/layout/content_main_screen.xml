@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainScreen"
+    tools:showIn="@layout/activity_main_screen"
+    android:orientation="vertical">
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/customizeProfileBtn"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="Customize Profile"
+        app:layout_constraintBottom_toTopOf="@+id/discoverEventsBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:backgroundTint="@color/wallet_holo_blue_light"
+        />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/discoverEventsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="Discover Events"
+        app:layout_constraintBottom_toTopOf="@+id/createEventBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:backgroundTint="@color/wallet_holo_blue_light"
+        app:layout_constraintTop_toBottomOf="@+id/customizeProfileBtn" />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/createEventBtn"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="Create Event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/discoverEventsBtn"
+        app:backgroundTint="@color/wallet_holo_blue_light"/>
+
+</LinearLayout>
