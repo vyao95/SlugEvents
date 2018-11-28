@@ -5,4 +5,5 @@
     <string name="title_activity_customize_profile_screen">CustomizeProfileScreen</string>
     <string name="title_activity_create_event_screen">CreateEventScreen</string>
     <string name="title_activity_discover_events_screen">DiscoverEventsScreen</string>
+    <string name="title_activity_view_user">ViewUser</string>
 </resources>

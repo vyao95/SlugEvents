@@ -1,21 +1,51 @@
 package com.example.cmps121.slugevents;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.net.Uri;
 import android.database.Cursor;
 import android.provider.MediaStore;
 import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.EditText;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class CustomizeProfileScreen extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
 
-    private String selectedImagePath;
-    private ImageView profileImage;
+    DatabaseReference databaseRef;
+    DatabaseReference profileRef;
+    StorageReference storageRef;
+    StorageReference uploadRef;
+    FirebaseAuth auth;
+    FirebaseUser u;
+
+    String selectedImagePath;
+    Uri selectedImageUri;
+    ImageView profileImage;
+    EditText name;
+    Button editPicBtn;
+    Button saveBtn;
+    Button cancelBtn;
+
+    private static final String TAG = "CustomizeProfileScreen";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +54,18 @@ public class CustomizeProfileScreen extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        profileImage = (ImageView) findViewById(R.id.profileImage);
+        auth = FirebaseAuth.getInstance();
+        u = auth.getCurrentUser();
+        databaseRef = FirebaseDatabase.getInstance().getReference();
+        storageRef = FirebaseStorage.getInstance().getReference();
 
-        Button editPicBtn = (Button) findViewById(R.id.editPicBtn);
-        editPicBtn.setOnClickListener(new View.OnClickListener(){
+        profileImage = (ImageView) findViewById(R.id.profileImage);
+        name = (EditText) findViewById(R.id.name);
+        editPicBtn = (Button) findViewById(R.id.editPicBtn);
+
+        editPicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -37,28 +73,59 @@ public class CustomizeProfileScreen extends AppCompatActivity {
             }
         });
 
-        Button saveBtn = (Button) findViewById(R.id.saveBtn);
-        saveBtn.setOnClickListener(new View.OnClickListener(){
+        saveBtn = (Button) findViewById(R.id.saveBtn);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
+                saveProfilePic();
+                saveProfile();
             }
         });
 
-        Button cancelBtn = (Button) findViewById(R.id.cancelBtn);
-        cancelBtn.setOnClickListener(new View.OnClickListener(){
+        cancelBtn = (Button) findViewById(R.id.cancelBtn);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 startActivity(new Intent(CustomizeProfileScreen.this, MainScreen.class));
             }
         });
     }
 
     public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    private void saveProfile() {
+        profileRef = databaseRef.child("profiles/users/" + u.getUid());
+        String nameText = name.getText().toString();
+
+        if (!TextUtils.isEmpty(nameText)) {
+            Profile p = new Profile(nameText);
+            profileRef.child("data").setValue(p);
+            Intent i = new Intent(CustomizeProfileScreen.this, MainScreen.class);
+            startActivity(i);
+        } else {
+            Toast.makeText(this, "You have not filled out a required field", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void saveProfilePic() {
+        uploadRef = storageRef.child("images/users/" + u.getUid() +"/profilePic.jpeg");
+        uploadRef.putFile(selectedImageUri).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "Failed to upload file");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getApplicationContext(), "Upload Success!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -66,7 +133,7 @@ public class CustomizeProfileScreen extends AppCompatActivity {
     {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
-                Uri selectedImageUri = data.getData();
+                selectedImageUri = data.getData();
                 selectedImagePath = getPath(selectedImageUri);
                 System.out.println("Image Path : " + selectedImagePath);
                 profileImage.setImageURI(selectedImageUri);

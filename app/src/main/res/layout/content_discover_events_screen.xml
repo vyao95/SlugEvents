@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top|center"
     android:orientation="vertical"
-    tools:context="com.example.cmps121.slugevents.DiscoverEventsScreen">
+    tools:context=".DiscoverEventsScreen">
 
     <ListView
         android:id="@+id/listView"
@@ -14,4 +14,4 @@
         android:layout_height="match_parent">
     </ListView>
 
-</android.widget.LinearLayout>
+</LinearLayout>

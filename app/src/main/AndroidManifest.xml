@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cmps121.slugevents">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,24 +25,26 @@
         </activity>
         <activity
             android:name=".MainScreen"
-            android:label="@string/title_activity_main_screen"/>
-
+            android:label="@string/title_activity_main_screen" />
         <activity
             android:name=".RegisterScreen"
             android:label="RegisterScreen"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".CustomizeProfileScreen"
             android:label="@string/title_activity_customize_profile_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateEventScreen"
-            android:label="@string/title_activity_create_event_screen"/>
+            android:label="@string/title_activity_create_event_screen" />
         <activity
             android:name=".DiscoverEventsScreen"
             android:label="@string/title_activity_discover_events_screen"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewUser"
+            android:label="@string/title_activity_view_user"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
