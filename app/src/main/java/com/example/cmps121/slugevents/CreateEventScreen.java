@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,7 @@ public class CreateEventScreen extends AppCompatActivity {
     FirebaseUser u;
     EditText etName, etTime, etLocation, etDate;
     Button exitBtn, createBtn;
+    Spinner eTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class CreateEventScreen extends AppCompatActivity {
         etTime = (EditText) findViewById(R.id.inputTime);
         etLocation = (EditText) findViewById(R.id.inputLocation);
         etDate = (EditText) findViewById(R.id.inputDate);
+        eTag = (Spinner) findViewById(R.id.tag);
 
 
         //Commenting this line all the way down will make it work. Firebase causing issues.
@@ -71,16 +74,18 @@ public class CreateEventScreen extends AppCompatActivity {
         String location = etLocation.getText().toString();
         String date = etDate.getText().toString();
         String email = u.getEmail();
+        String tag = eTag.getSelectedItem().toString();
 
 
         if(!TextUtils.isEmpty(name)
             && !TextUtils.isEmpty(time)
             && !TextUtils.isEmpty(location)
-            && !TextUtils.isEmpty(date)){
+            && !TextUtils.isEmpty(date)
+            && !TextUtils.isEmpty(tag)){
 
 
             String id = databaseEvents.push().getKey();
-            Event event = new Event(id, name, time, location, date, email);
+            Event event = new Event(id, name, time, location, date, email, tag);
             databaseEvents.child(id).setValue(event);
             Intent i = new Intent(CreateEventScreen.this, MainScreen.class);
             startActivity(i);

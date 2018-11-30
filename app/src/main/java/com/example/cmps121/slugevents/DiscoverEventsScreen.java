@@ -71,18 +71,21 @@ public class DiscoverEventsScreen extends AppCompatActivity {
                 String locationText = model.getLocation();
                 String dateText = model.getDate();
                 String emailText = model.getEmail();
+                String tagText = model.getTag();
 
                 TextView name = (TextView) view.findViewById(R.id.name);
                 TextView time = (TextView) view.findViewById(R.id.time);
                 TextView date = (TextView) view.findViewById(R.id.date);
                 TextView location = (TextView) view.findViewById(R.id.location);
                 TextView email = (TextView) view.findViewById(R.id.email);
+                TextView tag = (TextView) view.findViewById(R.id.tag);
 
                 name.setText(nameText);
                 time.setText(timeText);
                 date.setText(dateText);
                 location.setText(locationText);
                 email.setText(emailText);
+                tag.setText(tagText);
             }
         };
         listView.setAdapter(adapter);
