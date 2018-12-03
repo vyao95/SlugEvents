@@ -25,24 +25,22 @@ public class CreateEventScreen extends AppCompatActivity {
     DatabaseReference databaseEvents;
     FirebaseAuth auth;
     FirebaseUser u;
-    EditText etName, etTime, etLocation, etDate;
+    EditText etName, etTime, etLocation, etDate, etRSVP;
     Button exitBtn, createBtn;
     Spinner eTag;
-
+    //String RSVPe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event_screen);
-
         createBtn = (Button) findViewById(R.id.createEventBtn);
         exitBtn = (Button) findViewById(R.id.cancelBtn);
-
         etName = (EditText) findViewById(R.id.inputName);
+      //  etRSVP = (EditText) findViewById(R.id.inputRSVP);
         etTime = (EditText) findViewById(R.id.inputTime);
         etLocation = (EditText) findViewById(R.id.inputLocation);
         etDate = (EditText) findViewById(R.id.inputDate);
         eTag = (Spinner) findViewById(R.id.tag);
-
 
         //Commenting this line all the way down will make it work. Firebase causing issues.
         databaseEvents = FirebaseDatabase.getInstance().getReference("events");
@@ -75,13 +73,13 @@ public class CreateEventScreen extends AppCompatActivity {
         String date = etDate.getText().toString();
         String email = u.getEmail();
         String tag = eTag.getSelectedItem().toString();
+      //  String RSVP = etRSVP.getText().toString();
 
 
         if(!TextUtils.isEmpty(name)
             && !TextUtils.isEmpty(time)
             && !TextUtils.isEmpty(location)
-            && !TextUtils.isEmpty(date)
-            && !TextUtils.isEmpty(tag)){
+            && !TextUtils.isEmpty(date)){
 
 
             String id = databaseEvents.push().getKey();

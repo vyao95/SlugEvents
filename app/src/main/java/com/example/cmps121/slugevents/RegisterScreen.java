@@ -28,7 +28,7 @@ public class RegisterScreen extends AppCompatActivity implements OnClickListener
     private Button signUpBtn;
     private EditText etEmail;
     private EditText etPassword;
-
+    private TextView loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,13 @@ public class RegisterScreen extends AppCompatActivity implements OnClickListener
         setContentView(R.layout.activity_registration_screen);
 
         mAuth = FirebaseAuth.getInstance();
-
+        TextView loginBtn = (TextView)findViewById(R.id.loginBtn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
+            }
+        });
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
         etEmail = (EditText) findViewById(R.id.email);
         etPassword = (EditText) findViewById(R.id.password);
@@ -63,7 +69,6 @@ public class RegisterScreen extends AppCompatActivity implements OnClickListener
 
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-
                             startActivity(new Intent(RegisterScreen.this, LoginScreen.class));
                         }
                     }

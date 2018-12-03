@@ -48,4 +48,12 @@
         android:text="superman@ucsc.edu"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/RSVPbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RSVP"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
 </LinearLayout>

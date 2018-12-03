@@ -1,5 +1,7 @@
 package com.example.cmps121.slugevents;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,7 +34,7 @@ public class DiscoverEventsScreen extends AppCompatActivity {
     List<String> eventData;
     FirebaseListAdapter<Event> adapter;
     ListView listView;
-
+    Button RSVPbtn;
     @Override
     protected void onStart() {
         super.onStart();
@@ -51,6 +54,19 @@ public class DiscoverEventsScreen extends AppCompatActivity {
         setContentView(R.layout.activity_discover_events_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        RSVPbtn = (Button) findViewById(R.id.RSVPbtn);
+        RSVPbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","b@b.com" , null));
+                intent.putExtra(Intent.EXTRA_SUBJECT, "EVENT RSVP");
+                intent.putExtra(Intent.EXTRA_TEXT, "Hi I would like to attend your Event.");
+                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+            }
+        });
+
 
         listView = (ListView) findViewById(R.id.listView);
         Query query = FirebaseDatabase.getInstance().getReference().child("events");
@@ -72,6 +88,7 @@ public class DiscoverEventsScreen extends AppCompatActivity {
                 String dateText = model.getDate();
                 String emailText = model.getEmail();
                 String tagText = model.getTag();
+               // String RSVPText = model.getRSVP();
 
                 TextView name = (TextView) view.findViewById(R.id.name);
                 TextView time = (TextView) view.findViewById(R.id.time);
@@ -79,6 +96,7 @@ public class DiscoverEventsScreen extends AppCompatActivity {
                 TextView location = (TextView) view.findViewById(R.id.location);
                 TextView email = (TextView) view.findViewById(R.id.email);
                 TextView tag = (TextView) view.findViewById(R.id.tag);
+             //   TextView rsvp = (TextView) view.findViewById(R.id.RSVP);
 
                 name.setText(nameText);
                 time.setText(timeText);
@@ -86,6 +104,7 @@ public class DiscoverEventsScreen extends AppCompatActivity {
                 location.setText(locationText);
                 email.setText(emailText);
                 tag.setText(tagText);
+              //  rsvp.setText(RSVPText);
             }
         };
         listView.setAdapter(adapter);
