@@ -21,11 +21,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.bumptech.glide.Glide;
 
 public class CustomizeProfileScreen extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
@@ -34,6 +38,7 @@ public class CustomizeProfileScreen extends AppCompatActivity {
     DatabaseReference profileRef;
     StorageReference storageRef;
     StorageReference uploadRef;
+    StorageReference imageRef;
     FirebaseAuth auth;
     FirebaseUser u;
 
@@ -41,6 +46,7 @@ public class CustomizeProfileScreen extends AppCompatActivity {
     Uri selectedImageUri;
     ImageView profileImage;
     EditText name;
+    EditText bio;
     Button editPicBtn;
     Button saveBtn;
     Button cancelBtn;
@@ -61,6 +67,7 @@ public class CustomizeProfileScreen extends AppCompatActivity {
 
         profileImage = (ImageView) findViewById(R.id.profileImage);
         name = (EditText) findViewById(R.id.name);
+        bio =  (EditText) findViewById(R.id.bio);
         editPicBtn = (Button) findViewById(R.id.editPicBtn);
 
         editPicBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,9 +109,10 @@ public class CustomizeProfileScreen extends AppCompatActivity {
     private void saveProfile() {
         profileRef = databaseRef.child("profiles/users/" + u.getUid());
         String nameText = name.getText().toString();
+        String bioText = bio.getText().toString();
 
         if (!TextUtils.isEmpty(nameText)) {
-            Profile p = new Profile(nameText);
+            Profile p = new Profile(nameText, bioText);
             profileRef.child("data").setValue(p);
             Intent i = new Intent(CustomizeProfileScreen.this, MainScreen.class);
             startActivity(i);
@@ -113,8 +121,31 @@ public class CustomizeProfileScreen extends AppCompatActivity {
         }
     }
 
+    private void getProfile() {
+        profileRef = databaseRef.child("profiles/users/" + u.getUid() + "/data");
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               Profile p = dataSnapshot.getValue(Profile.class);
+               name.setText(p.getName());
+               bio.setText(p.getBio());
+               String n = p.getName();
+               System.out.println("Name: " + n);
+               System.out.println("Bio: " + p.getBio());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        imageRef = storageRef.child("images/users/" + u.getUid() + "/profilePic.jpeg");
+        Glide.with(this)
+                .load(imageRef)
+                .into(profileImage);
+    }
     private void saveProfilePic() {
-        uploadRef = storageRef.child("images/users/" + u.getUid() +"/profilePic.jpeg");
+        uploadRef = storageRef.child("images/users/" + u.getUid() + "/profilePic.jpeg");
         uploadRef.putFile(selectedImageUri).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

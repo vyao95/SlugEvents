@@ -1,5 +1,7 @@
 package com.example.cmps121.slugevents;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,51 +29,66 @@ import com.google.firebase.database.Query;
 
 public class DiscoverEventsScreen extends AppCompatActivity {
     DatabaseReference databaseEvents;
+    Query query;
     FirebaseAuth auth;
     FirebaseUser u;
     List<String> eventData;
     FirebaseListAdapter<Event> adapter;
+    FirebaseListAdapter<Event> newAdapter;
     ListView listView;
+    String tag = "all";
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
+    public void setFun(View v){
+        tag = "Fun";
+        setUpAdapter();
+        listView.setAdapter(adapter);
     }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
+    public void setSocial(View v) {
+        tag = "Social";
+        setUpAdapter();
+        listView.setAdapter(adapter);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discover_events_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    public void setEducation(View v){
+        tag = "Education";
+        setUpAdapter();
+        listView.setAdapter(adapter);
+    }
 
-        listView = (ListView) findViewById(R.id.listView);
-        Query query = FirebaseDatabase.getInstance().getReference().child("events");
-        databaseEvents = FirebaseDatabase.getInstance().getReference("events");
-        auth = FirebaseAuth.getInstance();
-        u = auth.getCurrentUser();
+    public void setUpAdapter(){
+        if (tag != "all") {
+            query = FirebaseDatabase.getInstance().getReference().child("events").orderByChild("tag").equalTo(tag);
+        } else {
+            query = FirebaseDatabase.getInstance().getReference().child("events");
+        }
+        /*
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long count = dataSnapshot.getChildrenCount();
+                int x = 0;
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        */
         FirebaseListOptions<Event> options = new FirebaseListOptions.Builder<Event>()
                 .setLayout(R.layout.events)//Note: The guide doesn't mention this method, without it an exception is thrown that the layout has to be set.
                 .setQuery(query, Event.class)
                 .build();
 
-        adapter = new FirebaseListAdapter<Event>(options) {
+        newAdapter = new FirebaseListAdapter<Event>(options) {
             @Override
             protected void populateView(View view, Event model, int position) {
                 String nameText = model.getName();
                 String timeText = model.getTime();
                 String locationText = model.getLocation();
                 String dateText = model.getDate();
-                String emailText = model.getEmail();
+                final String emailText = model.getEmail();
                 String tagText = model.getTag();
 
                 TextView name = (TextView) view.findViewById(R.id.name);
@@ -86,8 +104,49 @@ public class DiscoverEventsScreen extends AppCompatActivity {
                 location.setText(locationText);
                 email.setText(emailText);
                 tag.setText(tagText);
+
+                Button RSVPbtn = (Button) view.findViewById(R.id.RSVPBtn);
+                RSVPbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                "mailto", emailText , null));
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "EVENT RSVP");
+                        intent.putExtra(Intent.EXTRA_TEXT, "Hi I would like to attend your Event.");
+                        startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+                    }
+                });
             }
         };
+        adapter = newAdapter;
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_discover_events_screen);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        listView = (ListView) findViewById(R.id.listView);
+
+        auth = FirebaseAuth.getInstance();
+        u = auth.getCurrentUser();
+
+        setUpAdapter();
         listView.setAdapter(adapter);
     }
 

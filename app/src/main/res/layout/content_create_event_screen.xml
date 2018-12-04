@@ -17,7 +17,6 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/inputTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/nameLabel"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText

@@ -8,6 +8,36 @@
     android:orientation="vertical"
     tools:context=".DiscoverEventsScreen">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top|center"
+        tools:context=".DiscoverEventsScreen">
+
+        <Button
+            android:id="@+id/funTagBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setFun"
+            android:text="Fun" />
+
+        <Button
+            android:id="@+id/socialTagBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setSocial"
+            android:text="Social" />
+
+        <Button
+            android:id="@+id/educationTagBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setEducation"
+            android:text="Education" />
+
+    </LinearLayout>
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
