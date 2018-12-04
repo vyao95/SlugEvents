@@ -54,4 +54,11 @@
         android:layout_height="wrap_content"
         android:text="RSVP" />
 
+    <Button
+        android:id="@+id/CalBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add to google calendar" />
+
+
 </LinearLayout>

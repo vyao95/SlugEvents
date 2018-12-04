@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainScreen"
+            android:name=".Home"
             android:label="@string/title_activity_main_screen" />
         <activity
             android:name=".RegisterScreen"

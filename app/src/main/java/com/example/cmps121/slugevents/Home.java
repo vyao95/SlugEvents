@@ -2,14 +2,11 @@ package com.example.cmps121.slugevents;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-public class MainScreen extends AppCompatActivity {
+public class Home extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +17,7 @@ public class MainScreen extends AppCompatActivity {
         customizeProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(MainScreen.this, CustomizeProfileScreen.class));
+                startActivity(new Intent(Home.this, CustomizeProfileScreen.class));
             }
         });
 
@@ -28,7 +25,7 @@ public class MainScreen extends AppCompatActivity {
         createEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(MainScreen.this, CreateEventScreen.class));
+                startActivity(new Intent(Home.this, CreateEventScreen.class));
             }
         });
 
@@ -36,7 +33,7 @@ public class MainScreen extends AppCompatActivity {
         discoverEventsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(MainScreen.this, DiscoverEventsScreen.class));
+                startActivity(new Intent(Home.this, DiscoverEventsScreen.class));
             }
         });
 

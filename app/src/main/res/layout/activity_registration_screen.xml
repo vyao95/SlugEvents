@@ -60,8 +60,8 @@
         android:text="Already a member? Login"
         android:gravity="center"
         android:textSize="16dip"
-        android:onClick="onClick"/>
-
+        android:onClick="onClick"
+        android:clickable="true"/>
 
 
 </LinearLayout>

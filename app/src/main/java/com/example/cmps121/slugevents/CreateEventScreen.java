@@ -2,16 +2,11 @@ package com.example.cmps121.slugevents;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -53,7 +48,7 @@ public class CreateEventScreen extends AppCompatActivity {
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(CreateEventScreen.this, MainScreen.class);
+                Intent i = new Intent(CreateEventScreen.this, Home.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
@@ -87,7 +82,7 @@ public class CreateEventScreen extends AppCompatActivity {
             String id = databaseEvents.push().getKey();
             Event event = new Event(id, name, time, location, date, email, tag);
             databaseEvents.child(id).setValue(event);
-            Intent i = new Intent(CreateEventScreen.this, MainScreen.class);
+            Intent i = new Intent(CreateEventScreen.this, Home.class);
             startActivity(i);
         } else{
             Toast.makeText(this, "You have not filled out a required field", Toast.LENGTH_LONG).show();

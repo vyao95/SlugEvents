@@ -1,8 +1,10 @@
 package com.example.cmps121.slugevents;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.firebase.ui.database.FirebaseListAdapter;
@@ -84,12 +87,12 @@ public class DiscoverEventsScreen extends AppCompatActivity {
         newAdapter = new FirebaseListAdapter<Event>(options) {
             @Override
             protected void populateView(View view, Event model, int position) {
-                String nameText = model.getName();
+                final String nameText = model.getName();
                 String timeText = model.getTime();
-                String locationText = model.getLocation();
-                String dateText = model.getDate();
+                final String locationText = model.getLocation();
+                final String dateText = model.getDate();
                 final String emailText = model.getEmail();
-                String tagText = model.getTag();
+                final String tagText = model.getTag();
 
                 TextView name = (TextView) view.findViewById(R.id.name);
                 TextView time = (TextView) view.findViewById(R.id.time);
@@ -114,6 +117,26 @@ public class DiscoverEventsScreen extends AppCompatActivity {
                         intent.putExtra(Intent.EXTRA_SUBJECT, "EVENT RSVP");
                         intent.putExtra(Intent.EXTRA_TEXT, "Hi I would like to attend your Event.");
                         startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+                    }
+                });
+                Button Calbtn = (Button) view.findViewById(R.id.CalBtn);
+                Calbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Calendar beginTime = Calendar.getInstance();
+                        beginTime.set(2018, 11, 4, 17, 30);
+                        Calendar endTime = Calendar.getInstance();
+                        endTime.set(2018, 11, 4, 18, 30);
+                        Intent intent = new Intent(Intent.ACTION_INSERT)
+                                .setData(CalendarContract.Events.CONTENT_URI)
+                                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                                .putExtra(CalendarContract.Events.TITLE, nameText)
+                                .putExtra(CalendarContract.Events.DESCRIPTION, tagText)
+                                .putExtra(CalendarContract.Events.EVENT_LOCATION, locationText)
+                                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                                .putExtra(Intent.EXTRA_EMAIL, emailText);
+                        startActivity(intent);
                     }
                 });
             }

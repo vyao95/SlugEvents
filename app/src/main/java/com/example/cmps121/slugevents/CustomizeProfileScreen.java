@@ -1,6 +1,5 @@
 package com.example.cmps121.slugevents;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -93,7 +92,7 @@ public class CustomizeProfileScreen extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CustomizeProfileScreen.this, MainScreen.class));
+                startActivity(new Intent(CustomizeProfileScreen.this, Home.class));
             }
         });
     }
@@ -114,7 +113,7 @@ public class CustomizeProfileScreen extends AppCompatActivity {
         if (!TextUtils.isEmpty(nameText)) {
             Profile p = new Profile(nameText, bioText);
             profileRef.child("data").setValue(p);
-            Intent i = new Intent(CustomizeProfileScreen.this, MainScreen.class);
+            Intent i = new Intent(CustomizeProfileScreen.this, Home.class);
             startActivity(i);
         } else {
             Toast.makeText(this, "You have not filled out a required field", Toast.LENGTH_LONG).show();
