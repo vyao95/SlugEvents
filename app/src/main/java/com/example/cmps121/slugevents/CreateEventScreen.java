@@ -20,7 +20,7 @@ public class CreateEventScreen extends AppCompatActivity {
     DatabaseReference databaseEvents;
     FirebaseAuth auth;
     FirebaseUser u;
-    EditText etName, etTime, etLocation, etDate;
+    EditText etName, etTime, etLocation, etDate, etTimeEnd;
     Button exitBtn, createBtn;
     Spinner eTag;
 
@@ -34,6 +34,7 @@ public class CreateEventScreen extends AppCompatActivity {
 
         etName = (EditText) findViewById(R.id.inputName);
         etTime = (EditText) findViewById(R.id.inputTime);
+        etTimeEnd = (EditText) findViewById(R.id.inputTimeEnd);
         etLocation = (EditText) findViewById(R.id.inputLocation);
         etDate = (EditText) findViewById(R.id.inputDate);
         eTag = (Spinner) findViewById(R.id.tag);
@@ -66,6 +67,7 @@ public class CreateEventScreen extends AppCompatActivity {
 
         String name = etName.getText().toString();
         String time = etTime.getText().toString();
+        String timeEnd = etTimeEnd.getText().toString();
         String location = etLocation.getText().toString();
         String date = etDate.getText().toString();
         String email = u.getEmail();
@@ -80,7 +82,7 @@ public class CreateEventScreen extends AppCompatActivity {
 
 
             String id = databaseEvents.push().getKey();
-            Event event = new Event(id, name, time, location, date, email, tag);
+            Event event = new Event(id, name, time, timeEnd, location, date, email, tag);
             databaseEvents.child(id).setValue(event);
             Intent i = new Intent(CreateEventScreen.this, Home.class);
             startActivity(i);

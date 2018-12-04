@@ -89,6 +89,7 @@ public class DiscoverEventsScreen extends AppCompatActivity {
             protected void populateView(View view, Event model, int position) {
                 final String nameText = model.getName();
                 String timeText = model.getTime();
+                String timeEndText = model.getTimeEnd();
                 final String locationText = model.getLocation();
                 final String dateText = model.getDate();
                 final String emailText = model.getEmail();
@@ -96,6 +97,7 @@ public class DiscoverEventsScreen extends AppCompatActivity {
 
                 TextView name = (TextView) view.findViewById(R.id.name);
                 TextView time = (TextView) view.findViewById(R.id.time);
+                TextView timeEnd = (TextView) view.findViewById(R.id.timeEnd);
                 TextView date = (TextView) view.findViewById(R.id.date);
                 TextView location = (TextView) view.findViewById(R.id.location);
                 TextView email = (TextView) view.findViewById(R.id.email);
@@ -103,6 +105,7 @@ public class DiscoverEventsScreen extends AppCompatActivity {
 
                 name.setText(nameText);
                 time.setText(timeText);
+                timeEnd.setText(timeEndText);
                 date.setText(dateText);
                 location.setText(locationText);
                 email.setText(emailText);
