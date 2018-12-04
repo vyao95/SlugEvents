@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="top|center"
     android:orientation="vertical"
-    tools:context=".DiscoverEventsScreen">
+    tools:context=".DiscoverEventsScreen"
+    android:background="@drawable/background">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
