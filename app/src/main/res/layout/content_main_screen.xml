@@ -44,4 +44,5 @@
         app:layout_constraintTop_toBottomOf="@+id/discoverEventsBtn"
         app:backgroundTint="@color/wallet_holo_blue_light"/>
 
+
 </LinearLayout>

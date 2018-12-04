@@ -77,4 +77,5 @@
         app:layout_constraintTop_toBottomOf="@+id/loginBtn"
         android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
         />
+
 </LinearLayout>
