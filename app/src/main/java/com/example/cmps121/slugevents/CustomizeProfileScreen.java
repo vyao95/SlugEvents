@@ -95,6 +95,8 @@ public class CustomizeProfileScreen extends AppCompatActivity {
                 startActivity(new Intent(CustomizeProfileScreen.this, Home.class));
             }
         });
+
+        getProfile();
     }
 
     public String getPath(Uri uri) {
@@ -122,15 +124,15 @@ public class CustomizeProfileScreen extends AppCompatActivity {
 
     private void getProfile() {
         profileRef = databaseRef.child("profiles/users/" + u.getUid() + "/data");
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               Profile p = dataSnapshot.getValue(Profile.class);
-               name.setText(p.getName());
-               bio.setText(p.getBio());
-               String n = p.getName();
-               System.out.println("Name: " + n);
-               System.out.println("Bio: " + p.getBio());
+                Profile p = dataSnapshot.getValue(Profile.class);
+                name.setText(p.getName());
+                bio.setText(p.getBio());
+                String n = p.getName();
+                System.out.println("Name: " + n);
+                System.out.println("Bio: " + p.getBio());
             }
 
             @Override
@@ -140,9 +142,10 @@ public class CustomizeProfileScreen extends AppCompatActivity {
         });
         imageRef = storageRef.child("images/users/" + u.getUid() + "/profilePic.jpeg");
         Glide.with(this)
-                .load(imageRef)
+                .load("https://firebasestorage.googleapis.com/v0/b/androidsignindemo-e9384.appspot.com/o/images%2Fusers%2FpTFZz68d1HZ72lxorDmCup726kt2%2FprofilePic.jpeg?alt=media&token=c31f88b3-16d9-4fb0-b795-60968413d7c5")
                 .into(profileImage);
     }
+
     private void saveProfilePic() {
         uploadRef = storageRef.child("images/users/" + u.getUid() + "/profilePic.jpeg");
         uploadRef.putFile(selectedImageUri).addOnFailureListener(new OnFailureListener() {

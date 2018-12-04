@@ -2,6 +2,7 @@ package com.example.cmps121.slugevents;
 
 import android.content.ContentUris;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -39,46 +40,60 @@ public class DiscoverEventsScreen extends AppCompatActivity {
     FirebaseListAdapter<Event> adapter;
     FirebaseListAdapter<Event> newAdapter;
     ListView listView;
-    String tag = "all";
+    SharedPreferences tag;
+    SharedPreferences.Editor editor;
+    String filter;
 
     public void setFun(View v){
-        tag = "Fun";
+        filter = "Fun";
+        editor.putString("tag", filter);
+        editor.commit();
         setUpAdapter();
         listView.setAdapter(adapter);
+        finish();
+        startActivity(new Intent(this, DiscoverEventsScreen.class));
+        overridePendingTransition(0, 0);
     }
 
     public void setSocial(View v) {
-        tag = "Social";
+        filter = "Social";
+        editor.putString("tag", filter);
+        editor.commit();
         setUpAdapter();
         listView.setAdapter(adapter);
+        finish();
+        startActivity(new Intent(this, DiscoverEventsScreen.class));
+        overridePendingTransition(0, 0);
     }
 
     public void setEducation(View v){
-        tag = "Education";
+        filter = "Education";
+        editor.putString("tag", filter);
+        editor.commit();
         setUpAdapter();
         listView.setAdapter(adapter);
+        finish();
+        startActivity(new Intent(this, DiscoverEventsScreen.class));
+        overridePendingTransition(0, 0);
+    }
+
+    public void setAll(View v){
+        editor.putString("tag", "all");
+        editor.commit();
+        setUpAdapter();
+        listView.setAdapter(adapter);
+        finish();
+        startActivity(new Intent(this, DiscoverEventsScreen.class));
+        overridePendingTransition(0, 0);
     }
 
     public void setUpAdapter(){
-        if (tag != "all") {
-            query = FirebaseDatabase.getInstance().getReference().child("events").orderByChild("tag").equalTo(tag);
+        String s = tag.getString("tag", "all");
+        if (!s.equals("all")) {
+            query = FirebaseDatabase.getInstance().getReference().child("events").orderByChild("tag").equalTo(s);
         } else {
             query = FirebaseDatabase.getInstance().getReference().child("events");
         }
-        /*
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long count = dataSnapshot.getChildrenCount();
-                int x = 0;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        */
         FirebaseListOptions<Event> options = new FirebaseListOptions.Builder<Event>()
                 .setLayout(R.layout.events)//Note: The guide doesn't mention this method, without it an exception is thrown that the layout has to be set.
                 .setQuery(query, Event.class)
@@ -166,6 +181,9 @@ public class DiscoverEventsScreen extends AppCompatActivity {
         setContentView(R.layout.activity_discover_events_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        tag = getSharedPreferences("myPrefs", 0);
+        editor = tag.edit();
 
         listView = (ListView) findViewById(R.id.listView);
 

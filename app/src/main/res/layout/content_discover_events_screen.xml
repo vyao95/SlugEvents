@@ -37,6 +37,13 @@
             android:onClick="setEducation"
             android:text="Education" />
 
+        <Button
+            android:id="@+id/allTagBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setAll"
+            android:text="All" />
+
     </LinearLayout>
     <ListView
         android:id="@+id/listView"
