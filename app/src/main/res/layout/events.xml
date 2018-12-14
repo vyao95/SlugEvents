@@ -59,13 +59,15 @@
         android:id="@+id/RSVPBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="RSVP" />
+        android:text="RSVP"
+        android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
     <Button
         android:id="@+id/CalBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add to google calendar" />
+        android:text="Add to google calendar"
+        android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
 
 </LinearLayout>

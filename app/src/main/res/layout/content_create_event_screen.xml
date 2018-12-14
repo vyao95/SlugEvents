@@ -71,7 +71,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cancelBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputDate" />
+        app:layout_constraintTop_toBottomOf="@+id/inputDate"
+        android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
     <Button
         android:id="@+id/cancelBtn"
@@ -79,6 +80,7 @@
         android:layout_height="wrap_content"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
 </LinearLayout>

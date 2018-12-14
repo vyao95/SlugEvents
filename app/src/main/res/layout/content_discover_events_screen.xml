@@ -21,28 +21,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="setFun"
-            android:text="Fun" />
+            android:text="Fun"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
         <Button
             android:id="@+id/socialTagBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="setSocial"
-            android:text="Social" />
+            android:text="Social"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
         <Button
             android:id="@+id/educationTagBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="setEducation"
-            android:text="Education" />
+            android:text="Education"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
         <Button
             android:id="@+id/allTagBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="setAll"
-            android:text="All" />
+            android:text="All"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
     </LinearLayout>
     <ListView

@@ -29,13 +29,15 @@
             app:layout_constraintBottom_toTopOf="@+id/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+            app:layout_constraintTop_toBottomOf="@+id/profileImage"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
         <TextView
             android:id="@+id/nameLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name:" />
+            android:text="Name:"
+            />
 
         <EditText
             android:id="@+id/name"
@@ -72,7 +74,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/cancelBtn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
         <Button
             android:id="@+id/cancelBtn"
@@ -81,7 +84,8 @@
             android:text="Cancel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 
     </LinearLayout>
 </ScrollView>
